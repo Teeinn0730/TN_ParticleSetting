@@ -95,13 +95,6 @@
             #pragma target 3.0
             #pragma multi_compile_instancing
             #pragma instancing_options procedural:vertInstancingSetup
-            #define UNITY_PARTICLE_INSTANCE_DATA MyParticleInstanceData
-            #define UNITY_PARTICLE_INSTANCE_DATA_NO_ANIM_FRAME
-            struct MyParticleInstanceData
-            {
-                float3x4 transform;
-                uint color;
-            };
             #include "UnityCG.cginc"
             #include "UnityStandardParticleInstancing.cginc"
 
@@ -139,9 +132,7 @@
                 o.normal = UnityObjectToWorldNormal(v.normal); 
                 o.vertexColor = v.vertexColor;
                 o.uv = v.uv ;
-                vertInstancingColor(o.vertexColor);
-                vertInstancingUVs(v.uv.xy, o.uv.xy);
-                o.pos = mul((float4x4)UNITY_MATRIX_MVP,v.vertex);//UnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
                 o.posWorld = mul(unity_ObjectToWorld,v.vertex);
                 o.ray = 0;
                 //o.yDir = 0;
