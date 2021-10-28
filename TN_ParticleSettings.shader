@@ -164,7 +164,7 @@
                     UVTile_TimeSpeed = trunc(_Time.g *  _UVtileSpd);
                     UVTile = float2 (1,1) / float2 (_UVtileXY.x,_UVtileXY.y);
                     UVTile_X = floor(UVTile_TimeSpeed * UVTile.x);
-                    UVTile_Y = 1-( UVTile_TimeSpeed - _UVtileXY.y * UVTile_X);
+                    UVTile_Y = UVTile_TimeSpeed - _UVtileXY.x * UVTile_X;
                 }
 /////////SceneUV :
                 float2 SceneUV = o.projPos.xy / o.projPos.w; 
@@ -178,7 +178,7 @@
                     SceneUV += float2(_X_Speed,_Y_Speed)*_Time.g;
                 }
                 if(_UseUVtile){
-                    SceneUV = (SceneUV+float2(UVTile_X,UVTile_Y)) * UVTile;
+                    SceneUV = (SceneUV+float2(UVTile_Y,UVTile_X)) * UVTile;
                 }
 /////////UV Rotator:
                 float UVRotator_cos , UVRotator_sin = 0;
